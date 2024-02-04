@@ -222,5 +222,32 @@ public class Railway {
 				return (countLR1 == 0);
 		}
 	}
+	
+	/**
+	 * Verify if the next station can accept another train 
+	 * @param station
+	 * @param direction
+	 * @return
+	 */
+	public boolean verifyNextStation(Element station, Direction direction) {
+	int n = indexOfElement(station) ; 
+	Station nextStation ; 
+	if (direction == Direction.LR) {
+		for (int i = n+1 ; i <= getSize() -1 ; i ++) {
+			if (!elements[i].isSection()) {
+				nextStation = (Station) elements[i] ; 
+				return !nextStation.almostFull() ; 
+			}
+		}
+	} else {
+		for (int i = n-1 ; i >=0 ; i --) {
+			if (!elements[i].isSection()) {
+				nextStation = (Station) elements[i] ; 
+				return !nextStation.almostFull() ; 
+			}
+		}
+	}
+	return true ; 
+}
 
 }

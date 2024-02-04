@@ -116,4 +116,19 @@ public abstract class Element {
 	// A method used to distinguish if an element is a section or a station 	
 	public abstract boolean isSection();
 
+/**
+ * Verify if the next station can accept another train 	
+ * @param station 
+ * @param direction
+ */
+	public synchronized void verifyNextStation(Element station, Direction direction) {
+	while (!railway.verifyNextStation(station, direction)) {
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
 }

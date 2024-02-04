@@ -77,6 +77,7 @@ public class Position implements Cloneable {
 
 			} else {
 				pos.checkOneDirection(direction);
+				pos.verifyNextStation(pos, direction);
 				pos.announceDirection(direction, element);
 			}
 		} else if ((!element.isSection())) {

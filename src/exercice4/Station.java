@@ -85,5 +85,14 @@ public class Station extends Element {
 	public boolean isSection() {
 		return false;
 	}
+	
+	/**
+	 * Return if the station can take one more train 
+	 * @return a boolean to verify the csondition
+	 */
+	public synchronized boolean almostFull() {
+	return count == size - 1 || isOccupied() ; 
+}
+
 
 }
