@@ -1,4 +1,4 @@
-package exercice2_3;
+package exercice4;
 
 /**
  * Représentation d'une section de voie ferrée. C'est une sous-classe de la
@@ -47,7 +47,7 @@ public class Section extends Element {
 	@Override
 	public synchronized void enter() {
 		
-		while(isOccupied() ) { 
+		while(isOccupied) { 
 			try {
 				wait() ;
 			} catch (InterruptedException e) {
@@ -80,5 +80,6 @@ public class Section extends Element {
 	}
 	 
 	
+
 
 }

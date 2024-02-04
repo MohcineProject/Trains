@@ -1,4 +1,4 @@
-package exercice2_3;
+package exercice4;
 
 /**
  * Cette classe abstraite est la représentation générique d'un élément de base
@@ -22,7 +22,6 @@ public abstract class Element {
 	protected int size;
 
 	protected Element(String name) {
-
 		if (name == null)
 			throw new NullPointerException();
 
@@ -43,6 +42,12 @@ public abstract class Element {
 	}
 
 	// Added code begins :
+	
+	
+	
+	
+	
+	
 
 	// Abstract methods used in Section and Station
 	public abstract void leave();
@@ -54,7 +59,7 @@ public abstract class Element {
 	/**
 	 * The method that returns the next element depending on the direction
 	 * 
-	 * @param direction : the direction of the train
+	 * @param direction : the direction of the current element
 	 * @return the next element
 	 */
 	public Element getNext(Direction direction) {
@@ -70,7 +75,7 @@ public abstract class Element {
 	 */
 	public synchronized void checkOneDirection(Direction direction) {
 
-		if (!railway.oneDirection(direction)) {
+		while (!railway.oneDirection(direction, this)) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -82,28 +87,33 @@ public abstract class Element {
 
 	/**
 	 * Used to change the counts on railway that indicates the number of the trains
-	 * going in a certain direction. It supposes that the train calling this method
-	 * is either entering or leaving a station
+
+	 * going in a certain direction in a part of sections.
 	 * 
 	 * @param direction : the direction of the train
-	 * @param entering  : used to determine if the following element is a entering a
-	 *                  station or leaving it.
+	 * @param next      : used to determine if the following element is a station or
+	 *                  not. This information determines if a train is leaving a
+	 *                  station or entering it, so that the counts increase or
+	 *                  decrease accordingly
 	 */
-	public synchronized void announceDirection(Direction direction, boolean entering) {
+
+	public synchronized void announceDirection(Direction direction, Element next) {
 		if (direction == Direction.LR) {
-			if (entering)
-				railway.decreaseLR();
+			if (!next.isSection())
+				railway.decreaseLR(this);
 			else
-				railway.addLR();
+				railway.addLR(this);
 		} else {
-			if (entering)
-				railway.decreaseRL();
+			if (!next.isSection())
+				railway.decreaseRL(this);
 			else
-				railway.addRL();
+				railway.addRL(this);
 		}
+
 		notifyAll();
 	}
 
-	// A method used to distinguish if an element is a section or a station
+	// A method used to distinguish if an element is a section or a station 	
 	public abstract boolean isSection();
+
 }
