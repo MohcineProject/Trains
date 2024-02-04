@@ -10,41 +10,79 @@ package train3;
  */
 public class Station extends Element {
 
-	private int count =0;
 	public Station(String name, int size) {
 		super(name);
 		if (name == null || size <= 0)
 			throw new NullPointerException();
 		super.size = size;
+
+	}
+
+	// Added code begins :
 	
-	}
+	
+	
+	
+	
+
+	private int count = 0; // The count used to represent the number of trains in the Station
+
+	/**
+	 * The train enter the station, we check if the station is not already full
+	 */
 	@Override
-	public synchronized void trainIn() {
-		if(!isOccupied()) 
-			this.count ++ ; 
+	public synchronized void enter() {
+		while (isOccupied())
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		this.count++;
 	}
+
+	/**
+	 * The train leave the station, we check if the section is empty before
+	 */
+	
 	@Override
-	public synchronized void trainOut() {
-		if(!isEmpty()) 
-			this.count -- ; 
-		
-	} 
+	public synchronized void leave() {
+		if (!isEmpty())
+			this.count--;
+		notifyAll();
+	}
+
+	/**
+	 * represents the condition to access a station based on the number of trains
+	 * already in
+	 * 
+	 * @return a boolean value for the result
+	 * 
+	 */
 	@Override
 	public synchronized boolean isOccupied() {
-	return (count == size) ;
+		return (count == size);
 	}
-	
-	public synchronized boolean isEmpty() {
-		return (count == 0) ; 
-	}
-	
 
-	@Override 
+	/**
+	 * Verifies if the station is not empty to avoid having a negative count
+	 * 
+	 * @return a boolean value for the result
+	 * 
+	 */
+	private synchronized boolean isEmpty() {
+		return (count == 0);
+	}
+
+	/**
+	 * Verifies if the element is a section or a station
+	 * 
+	 * @return a boolean value for the result
+	 * 
+	 */
+	@Override
 	public boolean isSection() {
-		return false ;
+		return false;
 	}
-	
-
-
 
 }

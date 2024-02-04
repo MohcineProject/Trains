@@ -1,4 +1,4 @@
-package train2;
+package train4;
 
 /**
  * Représentation d'une section de voie ferrée. C'est une sous-classe de la
@@ -9,24 +9,25 @@ package train2;
  */
 public class Section extends Element {
 
-	
-	private boolean isOccupied ; 
+	private int count ;
+	 
 	
 	public Section(String name) {
 		super(name);
-		super.size = 1 ; 
+		super.size = 1 ;
+		this.count = 0 ; 
 	
 			
 	}
 	@Override
-	public synchronized void trainOut() {
-		isOccupied = false ;
+	public synchronized void leave() {
+		this.count -- ; 
 		notifyAll();
 		
 			
 	}
 	@Override
-	public synchronized void trainIn() {
+	public synchronized void enter() {
 		
 		while(isOccupied) { 
 			try {

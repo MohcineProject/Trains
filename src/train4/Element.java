@@ -1,4 +1,4 @@
-package train3;
+package train4;
 
 /**
  * Cette classe abstraite est la représentation générique d'un élément de base
@@ -29,6 +29,12 @@ public abstract class Element {
 
 	}
 
+	public abstract void leave();
+
+	public abstract void enter();
+
+	public abstract boolean isOccupied();
+
 	public void setRailway(Railway r) {
 		if (r == null)
 			throw new NullPointerException();
@@ -41,38 +47,15 @@ public abstract class Element {
 		return this.name;
 	}
 
-	// Added code begins :
-	
-	
-	
-	
-	
-	
+	public synchronized void Notify() {
+		notifyAll();
+	}
 
-	// Abstract methods used in Section and Station
-	public abstract void leave();
-
-	public abstract void enter();
-
-	public abstract boolean isOccupied();
-
-	/**
-	 * The method that returns the next element depending on the direction
-	 * 
-	 * @param direction : the direction of the current element
-	 * @return the next element
-	 */
 	public Element getNext(Direction direction) {
 		Element element = railway.getNextElement(this, direction);
 		return element;
 	}
 
-	/**
-	 * Used to enable or wait() a train from going a certain direction if there is
-	 * already trains on the sections going on the opposite direction.
-	 * 
-	 * @param direction : the direction of the train to go
-	 */
 	public synchronized void checkOneDirection(Direction direction) {
 
 		while (!railway.oneDirection(direction, this)) {
@@ -85,18 +68,6 @@ public abstract class Element {
 		}
 
 	}
-
-	/**
-	 * Used to change the counts on railway that indicates the number of the trains
-
-	 * going in a certain direction in a part of sections.
-	 * 
-	 * @param direction : the direction of the train
-	 * @param next      : used to determine if the following element is a station or
-	 *                  not. This information determines if a train is leaving a
-	 *                  station or entering it, so that the counts increase or
-	 *                  decrease accordingly
-	 */
 
 	public synchronized void announceDirection(Direction direction, Element next) {
 		if (direction == Direction.LR) {
@@ -114,6 +85,5 @@ public abstract class Element {
 		notifyAll();
 	}
 
-	// A method used to distinguish if an element is a section or a station 	
 	public abstract boolean isSection();
 }

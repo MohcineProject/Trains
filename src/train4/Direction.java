@@ -1,4 +1,4 @@
-package train;
+package train4;
 
 /**
  * Représentation de la direction que peut prendre un train : de gauche à droite
@@ -22,6 +22,11 @@ public enum Direction {
 		}
 	};
 
+	
+	/**
+	 * Returns the opposite direction.
+	 * @return direction : return the changed direction
+	 */
 	// Q1.3
 	public Direction change() {
 		if (this == Direction.LR) {

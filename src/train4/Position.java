@@ -1,4 +1,4 @@
-package train2;
+package train4;
 
 /**
  * Représentation de la position d'un train dans le circuit. Une position est
@@ -17,10 +17,10 @@ package train2;
  * @version 0.3
  */
 public class Position implements Cloneable {
-
+	
 	private final Direction direction;
 	private final Element pos;
-
+	
 	public Position(Element elt, Direction d) {
 		if (elt == null || d == null)
 			throw new NullPointerException();
@@ -41,19 +41,19 @@ public class Position implements Cloneable {
 		Direction direction = this.direction;
 		if (!pos.isSection()) {
 			if (pos == element) {
-				pos.announceDirection(direction, true);
+
 				direction = direction.change();
-				
+
 			} else {
 				pos.checkOneDirection(direction);
-				pos.announceDirection(direction, false);
+				pos.announceDirection(direction, element);
 			}
+		} else if ((!element.isSection())) {
+			pos.announceDirection(direction, element);
 		}
-			element.trainIn();
-			pos.trainOut();
-		
-		
 
+		element.enter();
+		pos.leave();
 
 		return new Position(element, direction);
 	}

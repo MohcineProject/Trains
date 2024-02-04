@@ -22,40 +22,13 @@ public class Position implements Cloneable {
 	private final Element pos;
 
 	public Position(Element elt, Direction d) {
+
 		if (elt == null || d == null)
 			throw new NullPointerException();
 
 		this.pos = elt;
 
 		this.direction = d;
-	}
-
-	public Element getPos() {
-
-		return pos;
-	}
-
-	// Q1.3
-	public Position nextPosition() {
-		Element element = pos.getNext(direction);
-		Direction direction = this.direction;
-		if (!pos.isSection()) {
-			if (pos == element) {
-				pos.announceDirection(direction, true);
-				direction = direction.change();
-				
-			} else {
-				pos.checkOneDirection(direction);
-				pos.announceDirection(direction, false);
-			}
-		}
-			element.trainIn();
-			pos.trainOut();
-		
-		
-
-
-		return new Position(element, direction);
 	}
 
 	@Override
@@ -75,4 +48,45 @@ public class Position implements Cloneable {
 		result.append(this.direction);
 		return result.toString();
 	}
+
+	public Element getPos() {
+
+		return pos;
+	}
+
+	// Added code begins :
+	
+	
+	
+	
+	
+
+	/**
+	 * Returns the next position to be taken by the train
+	 * 
+	 * @return the next position
+	 */
+	public Position nextPosition() {
+
+		Element element = pos.getNext(direction);
+		Direction direction = this.direction;
+		if (!pos.isSection()) {
+			if (pos == element) {
+
+				direction = direction.change();
+
+			} else {
+				pos.checkOneDirection(direction);
+				pos.announceDirection(direction, element);
+			}
+		} else if ((!element.isSection())) {
+			pos.announceDirection(direction, element);
+		}
+
+		element.enter();
+		pos.leave();
+
+		return new Position(element, direction);
+	}
+
 }

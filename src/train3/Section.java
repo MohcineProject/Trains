@@ -10,7 +10,7 @@ package train3;
 public class Section extends Element {
 
 	
-	private boolean isOccupied ; 
+
 	
 	public Section(String name) {
 		super(name);
@@ -18,15 +18,34 @@ public class Section extends Element {
 	
 			
 	}
+	// Added code begins : 
+	
+	
+	
+	//We add a condition to assure that the section contains one train max
+	private boolean isOccupied ; 
+	
+	
+	
+	/**
+	 * The train leaves the section and set the isOccupied attribut to false
+	 */
 	@Override
-	public synchronized void trainOut() {
+	public synchronized void leave() {
 		isOccupied = false ;
 		notifyAll();
 		
 			
 	}
+	
+	
+	
+	
+	/**
+	 * The train enter the section, we check if the section is already occupied 
+	 */
 	@Override
-	public synchronized void trainIn() {
+	public synchronized void enter() {
 		
 		while(isOccupied) { 
 			try {
@@ -39,12 +58,22 @@ public class Section extends Element {
 		isOccupied = true ;
 				
 	}
+	
+	
+	/**
+	 * The condition that controls the state of a train 
+	 * @return a boolean value of the condition
+	 */
 	@Override
 	public synchronized boolean isOccupied() {
 		return isOccupied ; 
 	}
 
-	
+	/**
+	 * Verifies if the element is a section or a station 	
+	 * @return a boolean value for the result 
+	 * 
+	 */
 	@Override 
 	public synchronized boolean isSection() {
 		return true ;

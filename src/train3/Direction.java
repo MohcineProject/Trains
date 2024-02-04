@@ -21,7 +21,19 @@ public enum Direction {
 			return "from right to left";
 		}
 	};
-
+	
+	
+	
+	// Added code begins :
+	
+	
+	
+	
+	
+	/**
+	 * Returns the opposite direction.
+	 * @return direction : return the changed direction
+	 */
 	// Q1.3
 	public Direction change() {
 		if (this == Direction.LR) {

@@ -1,5 +1,4 @@
-package train3;
-
+package train4;
 
 /**
  * Représentation d'un train. Un train est caractérisé par deux valeurs :
@@ -43,16 +42,7 @@ public class Train extends Thread {
 	}
 
 	
-	
-	
-	
 // Added code begins :	
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
