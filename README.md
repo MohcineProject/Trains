@@ -1,15 +1,14 @@
 # Trains
-# CONC TP11-15
 
-# Noms : Mohcine Zahdi, Mahmoud Mokrane 
+## Authors: Mohcine Zahdi, Mahmoud Mokrane
 
-### Version complète : 
-Lancer le main du package `exercice4` qui est le plus complet.
-le package `exercice2_3` et `exercice1`  fonctionne également mais ne traite pas le cas de gare intermédiaire.
+### Launching the Application:
+We divided the application versions into different packages, each package is related to an exercice where we implement a new feature for the program. 
+Therefore, to launch the latest version, execute the main class in the `exercice4` package. Packages `exercice2_3` and `exercice1` also work but do not handle a feature where we added an intermediate station for the trains.
 
-### Bugs : 
-Première version (package “train”) bloque au bout d’un moment de façon aléatoire lorsqu’un train se retourne dans une gare.
-On a corrigé ce problème est on a changé le nom par `exercice1`
+### Bugs:
+The initial version (package "train") occasionally freezes after a train derails at a station. We have addressed this issue and renamed it to `exercice1`.
 
-### Difficultés :
-On a eu un problème de débogage, difficile de suivre les paramètres et anticiper leur fonctionnement, car les actions d’un thread changent à chaque fois qu’on ‘run’ le code.
+### Challenges:
+Debugging was challenging as it was difficult to track parameters and anticipate their behavior, given that thread actions vary each time the code is run.
+
